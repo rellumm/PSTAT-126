@@ -1,3 +1,4 @@
+##Fitting a MLR Model to our Data
 #Our data set is called Student_Data
 attach(Student_Data)
 AvG<- (Student_Data$G1+ Student_Data$G2)/2
