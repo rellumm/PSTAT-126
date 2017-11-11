@@ -1,1 +1,5 @@
-hello :) Code Goes Here
+#Our data set is called Student_Data
+attach(Student_Data)
+AvG<- (Student_Data$G1+ Student_Data$G2)/2
+final.grade<-lm(Student_Data$G3~AvG+Student_Data$failures+Student_Data$Dalc+Student_Data$famrel)
+summary(final.grade)
