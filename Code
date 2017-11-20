@@ -1,6 +1,11 @@
 ##Fitting a MLR Model to our Data
 #Our data set is called Student_Data
 attach(Student_Data)
-AvG<- (Student_Data$G1+ Student_Data$G2)/2
-final.grade<-lm(Student_Data$G3~AvG+Student_Data$failures+Student_Data$Dalc+Student_Data$famrel)
-summary(final.grade)
+AvG<- (Student_Data$G1+ Student_Data$G2 +Student_Data$G3)/3
+x<-lm(AvG~.-G1-G2-G3, data=Student_Data)
+summary(x)
+avPlots(x)
+attach(Student_Data_P)
+AvG_P<- (Student_Data_P$G1+Student_Data_P$G2+Student_Data_P$G3)/3
+y<-lm(AvG_P~.-G1-G2-G3, data=Student_Data_P)
+avPlots(y)
