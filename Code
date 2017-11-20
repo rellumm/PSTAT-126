@@ -13,4 +13,4 @@ avPlots(y)
 ##Step Wise Selection Code
 f = ~ school+sex+age+address+famsize+Pstatus+Medu+Fedu+Mjob+Fjob+reason+guardian+traveltime+studytime+failures+schoolsup+famsup+paid+activities+nursery+higher+internet+romantic+famrel+freetime+goout+Dalc+Walc+health+absences
 m0 = lm(AvG ~ failures+schoolsup+sex+famsup+goout+studytime)
-m.stepup = step(m0, scope = c(lower = ~AvG, upper = f))
+m.stepup = step(m0, scope = c(lower = ~failures, upper = f))
