@@ -17,7 +17,9 @@ m0 = lm(AvG ~ failures+schoolsup+sex+famsup+goout+studytime)
 m.stepup = step(m0, scope = c(lower = ~failures, upper = f))
 
 
-#Confidence Interval for Mean Response
-prediction.mean<-predict(m.stepup,newdata = data.frame(failures=3,schoolsupyes=0,sexM=0,studytime=3,schoolMS=0,higheryes=1,Medu=3,Dalc=3,absences=10,health=3,romanticyes=0,guardianmother=1, guardianother=0),
-                         interval = "confidence", se.fit =T, level = 0.95)
-prediction.mean$fit 
+##prediction interval might not be valid because there is some randomness in the step up function meaning the model might not be the best model
+predict.mean<-predict(math.lm,newdata = data.frame(failures=3,schoolsup="yes",sex="M",famsup="yes",goout=3,studytime=3,
+                                                      Mjob="health",Medu=3,health=3,
+                                                      higher="yes",romantic="yes",address="U",freetime=3), interval = "predict", 
+                                                      se.fit =T, level = 0.95)
+predict.mean$fit
