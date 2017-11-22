@@ -1,4 +1,4 @@
-
+4
 ##Fitting a MLR Model to our Data
 #Our data set is called Student_Data
 attach(Student_Data)
@@ -18,8 +18,16 @@ m.stepup = step(m0, scope = c(lower = ~failures, upper = f))
 
 
 ##prediction interval might not be valid because there is some randomness in the step up function meaning the model might not be the best model
-predict.mean<-predict(math.lm,newdata = data.frame(failures=3,schoolsup="yes",sex="M",famsup="yes",goout=3,studytime=3,
+#prediction interval of GOOD math student
+predict.mean<-predict(math.lm,newdata = data.frame(failures=3,schoolsup="yes",sex="M",famsup="yes",goout=3,studytime=4,
                                                       Mjob="health",Medu=3,health=3,
                                                       higher="yes",romantic="yes",address="U",freetime=3), interval = "predict", 
                                                       se.fit =T, level = 0.95)
 predict.mean$fit
+##prediction for BAD math student
+predict.mean<-predict(math.lm,newdata = data.frame(failures=3,schoolsup="yes",sex="M",famsup="yes",goout=3,studytime=1,
+                                                      Mjob="health",Medu=3,health=3,
+                                                      higher="yes",romantic="yes",address="U",freetime=3), interval = "predict", 
+                                                      se.fit =T, level = 0.95)
+predict.mean$fit
+
