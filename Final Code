@@ -4,16 +4,31 @@ AvG<- (Student_Data$G1+ Student_Data$G2 +Student_Data$G3)/3
 f = ~ school+sex+age+address+famsize+Pstatus+Medu+Fedu+Mjob+Fjob+reason+guardian+traveltime+studytime+failures+schoolsup+famsup+paid+activities+nursery+higher+internet+romantic+famrel+freetime+goout+Dalc+Walc+health+absences
 m0 = lm(AvG ~ failures+schoolsup+sex+famsup+goout+studytime)
 m.stepup = step(m0, scope = c(lower = ~failures, upper = f))
-avPlots(m.stepup)
-summary(m.stepup)
-plot(m.stepup)
+math.lm= lm(m.stepup)
+plot(math.lm)
+
+#prediction interval of GOOD math student
+predict.mean<-predict(math.lm,newdata=data.frame(studytime=4,failures=1, schoolsup="no",sex="F",famsup="yes",goout=3,Mjob="services",Medu=3,health=4,higher="yes",romantic="no",address="U",freetime=3), interval = "predict",se.fit =T, level = 0.95)
+predict.mean$fit
+
+##prediction for BAD math student
+predict.mean<-predict(math.lm,newdata = data.frame(studytime=1,failures=1, schoolsup="no",sex="F",famsup="yes",goout=3,Mjob="services",Medu=3,health=4,higher="yes",romantic="no",address="U",freetime=3), interval ="predict", se.fit =T, level = 0.95)
+predict.mean$fit
 
 #Portuguese Data
 attach(Student_Data_P)
-AvG_P<- (Student_Data_P$G1+Student_Data_P$G2+Student_Data_P$G3)/3
+AvG<- (Student_Data_P$G1+ Student_Data_P$G2 +Student_Data_P$G3)/3
 f = ~ school+sex+age+address+famsize+Pstatus+Medu+Fedu+Mjob+Fjob+reason+guardian+traveltime+studytime+failures+schoolsup+famsup+paid+activities+nursery+higher+internet+romantic+famrel+freetime+goout+Dalc+Walc+health+absences
-m0 = lm(AvG_P ~ failures+schoolsup+sex+famsup+goout+studytime)
-m.stepup = step(m0, scope = c(lower = ~failures, upper = f))
-avPlots(m.stepup)
-summary(m.stepup)
-plot(m.stepup)
+m0 = lm(AvG ~ failures+schoolsup+sex+famsup+goout+studytime)
+P.stepup = step(m0, scope = c(lower = ~failures, upper = f))
+Port.lm= lm(P.stepup)
+plot(Port.lm)
+summary(Port.lm)
+
+#prediction interval of GOOD Portuguese student
+predict.mean<-predict(Port.lm,newdata=data.frame(failures=1,schoolsup="no",sex="F",studytime=4,school="GP",higher="yes",Medu=3,Dalc=1,absences=4,health=3,romantic="no",guardian="mother"), interval = "predict",se.fit =T, level = 0.95)
+predict.mean$fit
+
+##prediction for BAD Portuguese student
+predict.mean<-predict(Port.lm,newdata = data.frame(failures=1, schoolsup="no",sex="F",studytime=1,school="GP",higher="yes",Medu=3,Dalc=1,absences=4,health=3,romantic="no",guardian="mother"), interval ="predict", se.fit =T, level = 0.95)
+predict.mean$fit
